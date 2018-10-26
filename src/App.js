@@ -1,28 +1,50 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
-}
+import {
+  Clock,
+  Renderer,
+  BloomPass,
+  PixelationPass,
+  Camera,
+  Scene,
+  Cube
+} from './components'
 
-export default App;
+import Resize from './Resize'
+
+const M_2_PI = Math.PI * 2
+export default () => (
+  <Resize>
+    {({ width, height }) => (
+      <Renderer width={width} height={height}>
+        <BloomPass>
+          <PixelationPass granularity={20.0}>
+            <Scene>
+              <Camera
+                fov={75}
+                aspect={width / height}
+                near={0.1}
+                far={2000}
+                position={{
+                  z: 600
+                }}
+              />
+              <Clock>
+                {({ elapsedTime }) => (
+                  <Cube
+                    size={200}
+                    rotation={{
+                      x: Math.cos(elapsedTime / 2) * M_2_PI,
+                      y: Math.sin(elapsedTime / 2) * M_2_PI,
+                      z: Math.tan(elapsedTime / 2) * M_2_PI
+                    }}
+                  />
+                )}
+              </Clock>
+            </Scene>
+          </PixelationPass>
+        </BloomPass>
+      </Renderer>
+    )}
+  </Resize>
+)
