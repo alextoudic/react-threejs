@@ -13,7 +13,7 @@ import {
 import Resize from './Resize'
 
 const M_2_PI = Math.PI * 2
-export default () => (
+const Experiment = () => (
   <Resize>
     {({ width, height }) => (
       <Renderer width={width} height={height}>
@@ -51,3 +51,7 @@ export default () => (
     )}
   </Resize>
 )
+
+Experiment.displayName = 'Experiment'
+
+export default Experiment

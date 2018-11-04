@@ -69,7 +69,7 @@ class Camera extends PureComponent {
   }
 }
 
-export default props => (
+const EnhancedCamera = props => (
   <RendererContext.Consumer>
     {({ setCamera }) => (
       <SceneContext.Consumer>
@@ -80,3 +80,7 @@ export default props => (
     )}
   </RendererContext.Consumer>
 )
+
+EnhancedCamera.displayName = 'withRenderer(withScene(Camera))'
+
+export default EnhancedCamera
